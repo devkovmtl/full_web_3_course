@@ -125,3 +125,40 @@ Priced in Gwei.
 1 ETH = 1000000000 GWEI = 1000000000000000000 WEI
 
 When we send a transaction a little bit of Ethereum is removed for ever (Burnt)
+
+### High-Level Blockchain Fundamentals (01:38:00)
+
+<strong>Node</strong>: single instance in a decentralized network
+Anyone can join the network.
+Blockchains are resilient, if one node, or several go down, since there several of them it doesn't matter.
+Blockchain nodes keep a lists of the transactions that occur.
+We can think of a blockchain as a decentralized database.
+
+Consensus: Proof of work vs Proof of stake.
+Proof of work and proof of stake fall under consensus umbrella.
+<strong>Consensus</strong> mechanism used to agree on the state of blockchain. Specially on a decentralized
+system.
+
+Consensus can be breakdown into 2 pieces:
+1- Chain Selection algorithm
+2- Sybil Resistance mechanism (proof of work mechanism)
+
+Proof of work is known as a sybil resistance mechanism define a way who is the block author.
+Sybil resistance protect against user creating a large number of pseudo identities to gain a disproportionally
+advantegous influence over the system.
+
+Block Time: How long it takes between block publish.
+Block confirmations: number of additional block added on after our transaction when through a block.
+
+Proof of work uses a lot of energy
+
+Gas fees are paid by whoever makes the transaction
+
+Proof of Stake: different sybil resistance mechanism, proof of stake nodes put up collateral as a sybil
+resistance mechanism.
+In this system miners are called validators, they are just validate other node.
+
+Proof of stake uses much less energy
+
+Layer 1: Base layer blockchain implementation
+Layer 2: Any Application built on top of layer 1
