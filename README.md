@@ -64,7 +64,7 @@ Whenever you make a transaction, the 'miners' or 'validators' make a small fee.
 <strong>Gas</strong>: unit of computational measurement. The more complex your transaction is the more
 gas you have to pay.
 
-### How do blockchains work? (1:05)
+### How do blockchains work? (01:05:00)
 
 - [Blockchain Demo](https://andersbrownworth.com/blockchain/)
 
@@ -89,3 +89,39 @@ Also used to define the transaction number for an account/address.
 previous hash of blockchain.
 <strong>Genesis Block</strong>: The first block in a blockchain.
 <strong>Decentralized</strong>: Having no single point of authority
+
+### Signin the transaction (01:22:00)
+
+<strong>Private Key</strong>: Only known to the key holder, it's used to 'sign' transactions.
+Keep this key secret
+With the private key we generate a public key.
+<strong>Public key</strong>: derived from private key. Anyone can "see" it, and use it to verify that
+a transaction came from you.
+
+We are going to use private key has a password, to digitaly sign transaction. People can verify them with
+the public key.
+We can use the private key to sign the data.
+Using the public key everybody can verify the signature is ours.
+
+To get our address we can take our public key hashwith keccak and take last 20 bytes
+
+<strong>Signing a transaction</strong>
+A one way process. Someone with pricate key signs a transaction by their private key being hashaed with
+their transaction data.
+
+Anyone can verify this new transaction hash with your public key.
+
+### GAS: Block Rewards & EIP 1559 (01:30:00)
+
+The more people use a chain the more expensive it is to send transactions.
+We can set a limit on how much gas we want to spend.
+Every transaction on ethereum comes with a base fee.
+
+<strong>Base Fee</strong>: The minium "gas price" to send your transaction.
+Priced in Gwei.
+
+[eth-converter](https://eth-converter.com/)
+
+1 ETH = 1000000000 GWEI = 1000000000000000000 WEI
+
+When we send a transaction a little bit of Ethereum is removed for ever (Burnt)
