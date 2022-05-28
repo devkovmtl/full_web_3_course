@@ -55,3 +55,37 @@ To: account that receive the transaction
 Value: how much amount we send
 Transaction Fee: amount paid to the miner for processing the transaction
 Gas Price: cost per unit of gas
+
+### GAS: Introduction to Gas (59:00)
+
+All transaction get paid for all the transaction that happened on the blockchain.
+Whenever you make a transaction, the 'miners' or 'validators' make a small fee.
+
+<strong>Gas</strong>: unit of computational measurement. The more complex your transaction is the more
+gas you have to pay.
+
+### How do blockchains work? (1:05)
+
+- [Blockchain Demo](https://andersbrownworth.com/blockchain/)
+
+<strong>Hash</strong>: A unique fixed length string, meant to identify a piece of data.
+They are created by placing said data into a "hash function".
+<strong>Hash Algorithm</strong>: Function that computes data into a unique hash
+
+<strong>Mining</strong>: The process of finding the "solution" to the blockchain "problem".
+Nodes get paid for mining blocks.
+
+<strong>Block</strong>: A list of transaction mined together
+Block
+<strong>Nonce</strong>: "number used once" to find the "solution" to the blockchain problem.
+Data
+Hash all 3 of piece of data together to get the hash
+(example: Find a value of nonce at block number with the data so that hash start with zero)
+
+<strong>Nonce</strong>: "number used once" to find the "solution" to the blockchain problem.
+Also used to define the transaction number for an account/address.
+
+<strong>Blockchain</strong>: combination of block, with prev piece of data, which point at the
+previous hash of blockchain.
+<strong>Genesis Block</strong>: The first block in a blockchain.
+<strong>Decentralized</strong>: Having no single point of authority
