@@ -264,3 +264,32 @@ function addPerson(string calldata _name, uint256 _favoriteNumber) public {
     nameToFavoriteNumber[_name] = _favoriteNumber;
 }
 ```
+
+### Remix Storage Factory (03:05:00)
+
+We can have contract that deploy other contract for us, and we can interact with those contract from other contract.
+<strong>composability</strong> ability for smart contract to interact with each other
+
+How does the factory contract know how the contract we want to deploy look like?
+
+```solidity
+// SPDX-License-Identifier:MIT
+pragma solidity ^0.8.0;
+
+import "./SimpleStorage.sol";
+
+contract StorageFactory {
+    // hold other storage
+    SimpleStorage public simpleStorage;
+
+    // function to deploy our simplestorage contract and save it to a global variable
+    function createSimpleStorageContract() public {
+        simpleStorage = new SimpleStorage();
+    }
+}
+```
+
+In order to interact with a contract you always going to need 2 things:
+
+- Address of contract
+- ABI - Application Binary Interface of contract
