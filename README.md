@@ -162,3 +162,85 @@ Proof of stake uses much less energy
 
 Layer 1: Base layer blockchain implementation
 Layer 2: Any Application built on top of layer 1
+
+## Remix
+
+[remix](https://remix.ethereum.org/)
+
+#### Basic Solidity Types
+
+Create a contract in solidity like a class in javascript:
+
+```solidity
+contract Example {
+
+}
+```
+
+[Solidity types](https://docs.soliditylang.org/en/latest/types.html)
+Most basic types: boolean, uint, int, address, bytes
+
+```solidity
+bool hasFavoriteNumber = true;
+uint favoriteNumber = 123; // only positive
+int anotherNumber = -1; // negative
+string favoriteNumberInText  = "Five";
+address  myAddress = address(0);
+bytes32 favoriteBytes = "cat";
+```
+
+Function or methods are self contain module that will execute some specific set of instruction.
+
+```solidity
+function store(uint256 _favoriteNumber) public  {
+    favoriteNumber = _favoriteNumber;
+}
+```
+
+Smart contracts have addresses just like our wallet accounts do. Any time you change something on-chain
+including making a new contract, it happens in a transaction.
+
+`public`: visibile externally and internally anybody can call
+`private`: only visible in the current contract
+`external`: only visible externally somebody outside of contract can call
+`internal`: only visible internally
+
+The default visibility is internal.
+
+view and pure functions, when called alone don't spend gas, pure functions disallow to read
+from blockchain state.
+
+```solidity
+function add() public pure returns(uint256) {
+    return (1 + 1)
+}
+```
+
+#### Arrays and Structs
+
+Struct create a new type of varible
+
+```solidity
+People public person = People({favoriteNumber: 2, name: "John"});
+
+// struct of people
+struct People {
+    uint256 favoriteNumber;
+    string name;
+}
+```
+
+Array is data structure that holds a list of other types.
+
+```solidity
+struct People {
+    uint256 favoriteNumber;
+    string name;
+}
+
+People[] public peoples;
+```
+
+Dynamic array size is not given at the initialisation
+
+2:45:34
