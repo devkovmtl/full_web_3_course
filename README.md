@@ -243,4 +243,24 @@ People[] public peoples;
 
 Dynamic array size is not given at the initialisation
 
-2:45:34
+#### Memory, Storage and CallData
+
+calldata, and memory means that the variable will only exist temporarly
+storage exist even outside of just the function executing
+
+struct, array, mapping need to be given memory or calldata keyword when adding them to different parameter
+
+#### Mapping
+
+mapping: data structure where a key is "mapped" to a single value, like a dictionary
+
+```solidity
+mapping(string => uint256) public nameToFavortiteNumber;
+
+...
+
+function addPerson(string calldata _name, uint256 _favoriteNumber) public {
+    peoples.push(People({favoriteNumber:_favoriteNumber,name: _name}));
+    nameToFavoriteNumber[_name] = _favoriteNumber;
+}
+```
