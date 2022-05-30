@@ -347,3 +347,52 @@ function fund() public payable {
 ```
 
 Reverting ? undo any action before, and send remaining gas back.
+
+#### Chainlink & Oracles (03:41)
+
+We want to check that msg.value is greather than 50USD not ETH.
+In order to get the value of eth in usd we need to use a decentralize oracles network to get 1ETH in USD
+
+<strong>Blockchain Oracle</strong>: Any device that interacts with the off-chain world to provide external data or computation to smart contracts.
+
+#### Interfaces & Price Feeds (04:01)
+
+[Price Feeds](https://docs.chain.link/docs/get-the-latest-price/)
+In order to be able to check if we receive the right amount we need to convert msg.value in usd.
+We need to get the price of ETH, for that we can use chainlink data feed.
+
+Since we need to interact outside of our project we need address and ABI of outside contract.
+We can get the address easily:
+[Ethereum data feed](https://docs.chain.link/docs/ethereum-addresses/)
+
+Instead of the ABI we can use interface.
+
+```solidity
+@chainlink/contracts/src/v0.8/interfaces/AggregatorV3Interface.sol
+
+...
+
+// get the price of ETH/USD
+function getPrice() public view returns (uint256){
+    AggregatorV3Interface priceFeed = AggregatorV3Interface(0x8A753747A1Fa494EC906cE90E9f37563A8AF630e);
+    (
+        /*uint80 roundID*/,
+        int price,
+        /*uint startedAt*/,
+        /*uint timeStamp*/,
+        /*uint80 answeredInRound*/
+    ) = priceFeed.latestRoundData();
+    // price -> ETH in terms of USD // 8 decimals associate with price feed
+    // 3000.00000000
+    // msg.value will 18 decimals value because 1 eth = 1 * 10 ** 18 wei
+    return uint256(price * 1e10); // 1 ** 10 = 10000000000
+}
+
+
+// convert the eth in usd to check agains msg.value
+function getConversionRate(uint256 ethAmount) public view returns (uint256) {
+    uint256 ethPrice = getPrice();
+    uint256 ethAmountInUsd = (ethPrice * ethAmount) / 1e18;
+    return ethAmountInUsd;
+}
+```
