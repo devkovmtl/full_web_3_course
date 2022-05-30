@@ -396,3 +396,28 @@ function getConversionRate(uint256 ethAmount) public view returns (uint256) {
     return ethAmountInUsd;
 }
 ```
+
+#### Arrays & Struct II (04:21:58)
+
+We want to keep track of all the people that send us money.
+msg.value: how much currency is send
+msg.sender: who send the currency address
+
+```solidity
+// keep track of anyone who fund us
+address[] public funders;
+// how much each funders has given
+mapping(address =>  uint256) public addressToAmountFunded;
+...
+function fund() public payable {
+    // we want to set a minimum fund amount
+    // 1. How to send ETH to this contract
+    require(msg.value >= minimumUSD, "Not enough found"); // 1e18 = 1 * 10 **18
+    funders.push(msg.sender);
+    addressToAmountFunded[msg.sender] = msg.value;
+}
+```
+
+#### Libraries
+
+We can use library to add more functionnality to different values.
