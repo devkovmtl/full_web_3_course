@@ -314,3 +314,36 @@ function sfGet(uint256 _simpleStorageIndex) public view returns (uint256) {
     return simpleStorage.retrieve();
 }
 ```
+
+### Remix Fund Me (03:31:00)
+
+We are going to work with a contract to which we can send some token, and then the owner of contract can withdraw the fund.
+
+#### Sending ETH Through A function and Reverts
+
+Every transaction that we send to a contract will have these fields:
+
+- Nonce: tx count for the account
+- Gas Price: price per unit of gas (in wei)
+- Gas Limit: max gas that this tx can use
+- To: address that the tx is sent to
+- Value: amount of wei to send
+- Data: what to send to the To address
+- v, r, s: components of tx signature
+
+In order to make a function payable we need to use payable keyword
+
+```solidity
+function fund() public payable {}
+```
+
+<strong>Smart contracts can hold funds just like how wallets can</strong>
+Money math done in terms of wei so 1ETH needs to be set as 1e18 value
+
+```solidity
+function fund() public payable {
+    require(msg.value > 1e18, "Not enough ETH");
+}
+```
+
+Reverting ? undo any action before, and send remaining gas back.
