@@ -18,6 +18,12 @@ contract FundMe {
     // how much each funders has given
     mapping(address =>  uint256) public addressToAmountFunded;
 
+    address public owner;
+
+    constructor() {
+        owner = msg.sender;
+    }
+
     // anybody can call it -> public
     // receive fund -> payable
     function fund() public payable {
@@ -31,7 +37,8 @@ contract FundMe {
 
     // we want to withdraw all the fund from contract
     // reset the funders[] and addressToAmountFunded
-    function withdraw() public {
+    function withdraw() public onlyOwner {
+        require(msg.sender == owner);
         for (uint256 funderIndex = 0; funderIndex < funders.length; funderIndex++) {
             address funder = funders[funderIndex]; // we get the funder address
             addressToAmountFunded[funder] = 0;
@@ -50,6 +57,11 @@ contract FundMe {
         // call any function in all of all eth without abi
         (bool callSuccess, bytes memory dataReturned) = payable(msg.sender).call{value:address(this).balance}("");
         require(callSuccess, "Call failed");
+    }
+
+    modifier onlyOwner() {
+        require(msg.sender == owner, "Sender is not owner");
+        _; // doing the rest of code
     }
 
 }

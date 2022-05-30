@@ -412,7 +412,7 @@ mapping(address =>  uint256) public addressToAmountFunded;
 function fund() public payable {
     // we want to set a minimum fund amount
     // 1. How to send ETH to this contract
-    require(msg.value >= minimumUSD, "Not enough found"); // 1e18 = 1 * 10 **18
+    require(msg.value >= minimumUSD, "Not enough fund"); // 1e18 = 1 * 10 **18
     funders.push(msg.sender);
     addressToAmountFunded[msg.sender] = msg.value;
 }
@@ -421,3 +421,24 @@ function fund() public payable {
 #### Libraries
 
 We can use library to add more functionnality to different values.
+
+#### Constructor
+
+We want to make sure that only the owner of the contract can withdraw the fund.
+
+```solidity
+address public owner;
+
+constructor() {
+    owner = msg.sender;
+}
+```
+
+#### Modifier
+
+```solidity
+modifier onlyOwner() {
+    require(msg.sender == owner, "Sender is not owner");
+    _; // doing the rest of code
+}
+```
