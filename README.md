@@ -504,3 +504,19 @@ We can wait confirmation that our contract is attached to the chain.
 ```javascript
 const deploymentReceipt = await contract.deployTransaction.wait(1);
 ```
+
+#### Interacting with Contract in EthersJs
+
+```javascript
+// // INTERACT WITH CONTRACT
+// contract comes from contractFactory
+const currentFavoriteNumber = await contract.retrieve();
+```
+
+1 - connect to ganache
+2 - connect a wallet with a private key
+3 - grab the abi and binary of contract
+4 - connect abi and binary to new contract factory object
+5 - deploy the contract
+6 - wait one block for transaction to finish
+7 - interact with contract (here retrieve the fav number)
