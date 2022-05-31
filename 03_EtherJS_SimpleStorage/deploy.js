@@ -1,3 +1,4 @@
+require('dotenv').config();
 const fs = require('fs');
 const { ethers } = require('ethers');
 
@@ -8,12 +9,9 @@ async function main() {
   // http://0.0.0.0:7545
   // connect to the url
 
-  const provider = new ethers.providers.JsonRpcProvider('http://0.0.0.0:7545');
+  const provider = new ethers.providers.JsonRpcProvider(process.env.RPC_URL);
   // get wallet and private key to // private key comes from ganache
-  const wallet = new ethers.Wallet(
-    '31fc8e7b15bafd0d1c2e05e58a3865a12f0bdf093de496a85f4e07255df0927c',
-    provider
-  );
+  const wallet = new ethers.Wallet(process.env.PRIVATE_KEY, provider);
   // read the ABI
   const abi = fs.readFileSync('./SimpleStorage_sol_SimpleStorage.abi', 'utf8');
   const binary = fs.readFileSync(
