@@ -1,22 +1,17 @@
-// SPDX-License-Identifier: MIT
-
+// SPDX-License-Identifier:MIT
 pragma solidity ^0.8.8;
 
-// EVM, Ethereum Virtual Machine
-// Avalanche, Fantom, Polygon
-
-// define contract
 contract SimpleStorage {
-    uint256 public favoriteNumber; // default 0
-
+    // store favorite number
+    uint256 public favoriteNumber;
+    // name of user to number
     mapping(string => uint256) public nameToFavoriteNumber;
 
-    // struct of people
     struct People {
         uint256 favoriteNumber;
         string name;
     }
-
+    // uint256[] public anArray;
     People[] public peoples;
 
     function store(uint256 _favoriteNumber) public {
@@ -27,7 +22,7 @@ contract SimpleStorage {
         return favoriteNumber;
     }
 
-    function addPerson(string calldata _name, uint256 _favoriteNumber) public {
+    function addPerson(string memory _name, uint256 _favoriteNumber) public {
         peoples.push(People({favoriteNumber: _favoriteNumber, name: _name}));
         nameToFavoriteNumber[_name] = _favoriteNumber;
     }

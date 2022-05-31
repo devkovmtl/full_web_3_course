@@ -442,3 +442,59 @@ modifier onlyOwner() {
     _; // doing the rest of code
 }
 ```
+
+### Ether.js Simple Storage (05:30:44)
+
+EtherJS allow us to interact with blockchain [etherJs](https://docs.ethers.io/v5/)
+We will use javascript to deploy our contract.
+Before deploying our code we need to compile it.
+To compile our code we are going to use [solc-js](https://github.com/ethereum/solc-js)
+
+```bash
+yarn add ethers solc
+```
+
+To compile the code:
+
+```bash
+yarn solcjs --bin --abi --include-path node_modules/ --base-path . -o . SimpleStorage.sol
+```
+
+Will produce 2 files SimpleStorage.bin and SimpleStorage.abi
+
+#### Ganache & Networks
+
+In order to deploy to Javascript Virtual Environment, fake blockchain.
+We need to have a fake blockchain we are going to use Ganache.
+[Ganache](https://trufflesuite.com/ganache/)
+
+In our code we need to connect to a blockchain
+
+```javascript
+const ethers = require('ether');
+
+async function main() {
+  // compile them in code
+  // compile them separately
+  // connect to ganache
+  // http://0.0.0.0:8545
+  // connect to the url
+  const provider = new ethers.providers.JsonRpcProvider('http://0.0.0.0:8545');
+  // get wallet and private key to // private key comes from ganache
+  const wallet = new ethers.Wallet(
+    '3b323b5395678a4089420a5ea1e85e3e37f56e18631db10532a429d0cab34c5e',
+    provider
+  );
+
+  // use to deploy contract
+  const contractFactory = new ethers.ContractFactory(abi, binary, wallet);
+  console.log('Deploying wait...');
+  const contract = await contractFactory.deploy();
+  console.log('Contract deployed...');
+  console.log(contract);
+}
+```
+
+With provider and wallet we are set, we can interact with smart contract.
+provider: connection to the blockchain
+wallet and private key so we can sign the transaction.
