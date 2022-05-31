@@ -11,7 +11,15 @@ async function main() {
 
   const provider = new ethers.providers.JsonRpcProvider(process.env.RPC_URL);
   // get wallet and private key to // private key comes from ganache
-  const wallet = new ethers.Wallet(process.env.PRIVATE_KEY, provider);
+  //   const wallet = new ethers.Wallet(process.env.PRIVATE_KEY, provider);
+  // use our encrypted key
+  const encryptedjson = fs.readFileSync('./.encryptedKey.json', 'utf8');
+  let wallet = new ethers.Wallet.fromEncryptedJsonSync(
+    encryptedjson,
+    process.env.PRIVATE_KEY_PASSWORD
+  );
+  // wallet need to be connected
+  wallet = await wallet.connect(provider);
   // read the ABI
   const abi = fs.readFileSync('./SimpleStorage_sol_SimpleStorage.abi', 'utf8');
   const binary = fs.readFileSync(
