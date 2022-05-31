@@ -498,3 +498,9 @@ async function main() {
 With provider and wallet we are set, we can interact with smart contract.
 provider: connection to the blockchain
 wallet and private key so we can sign the transaction.
+
+We can wait confirmation that our contract is attached to the chain.
+
+```javascript
+const deploymentReceipt = await contract.deployTransaction.wait(1);
+```
