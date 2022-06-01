@@ -9,7 +9,11 @@ async function main() {
   // http://0.0.0.0:7545
   // connect to the url
 
-  const provider = new ethers.providers.JsonRpcProvider(process.env.RPC_URL);
+  //   const provider = new ethers.providers.JsonRpcProvider(process.env.RPC_URL);
+  // USE ALCHEMY
+  const provider = new ethers.providers.JsonRpcProvider(
+    process.env.RPC_URL_ALCHEMY
+  );
   // get wallet and private key to // private key comes from ganache
   //   const wallet = new ethers.Wallet(process.env.PRIVATE_KEY, provider);
   // use our encrypted key
@@ -35,7 +39,8 @@ async function main() {
   console.log('Contract deployed...');
   //   console.log(contract);
   const deploymentReceipt = await contract.deployTransaction.wait(1);
-  //   console.log('Deployment transaction: ');
+  console.log(`Contract Address: ${contract.address}`);
+  // console.log('Deployment transaction: ');
   //   console.log(contract.deployTransaction);
   //   console.log('Deployment receipt: ');
   //   console.log(deploymentReceipt);

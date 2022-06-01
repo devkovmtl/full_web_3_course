@@ -520,3 +520,20 @@ const currentFavoriteNumber = await contract.retrieve();
 5 - deploy the contract
 6 - wait one block for transaction to finish
 7 - interact with contract (here retrieve the fav number)
+
+#### Deploying to a TestNet or Mainnet (07:57:52)
+
+In order to deploy to testnet we need an RPC_URL and a private key and we can begin to make transaction to blockchain.
+
+[Alchemy](https://www.alchemy.com/) as a node as service, allow us to connect to any blockchain that they have
+support for.
+Some alternative:
+[Quicknode](https://www.quicknode.com/)
+[Moralis](https://moralis.io/)
+[Infura](https://infura.io/)
+
+Once we create our App in Alchemy we can grab the Http Key endpoint, that will be RPC_URL
+
+For the private key we can use our metamask private key.
+
+(typescript code - 08:17:05)

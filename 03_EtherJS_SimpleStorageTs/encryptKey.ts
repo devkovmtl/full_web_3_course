@@ -1,15 +1,15 @@
-require('dotenv').config();
-const fs = require('fs');
-const { ethers } = require('ethers');
+import { ethers } from 'ethers';
+import * as fs from 'fs-extra';
+import 'dotenv/config';
 
 // to create a crypted version of our private key
 async function main() {
-  const wallet = new ethers.Wallet(process.env.PRIVATE_KEY);
+  const wallet = new ethers.Wallet(process.env.PRIVATE_KEY!);
   const encryptedKeyJsonKey = await wallet.encrypt(
-    process.env.PRIVATE_KEY_PASSWORD,
+    process.env.PRIVATE_KEY_PASSWORD!,
     // process.env.PRIVATE_KEY
     // use metamask key
-    process.env.PRIVATE_KEY_META
+    process.env.PRIVATE_KEY!
   );
   //   console.log(encryptedKeyJsonKey);
   fs.writeFileSync('./.encryptedKey.json', encryptedKeyJsonKey);
