@@ -563,3 +563,27 @@ Compile our contract
 ```bash
 yarn harhat compile
 ```
+
+Deploy contract with hardhat
+
+```javascript
+// async main
+async function main() {
+  // grab contract factory
+  const SimpleStorageFactory = await ethers.getContractFactory(
+    'SimpleStoragew'
+  );
+  console.log('Deploying contract...');
+  const simpleStorage = await SimpleStorageFactory.deploy();
+  await simpleStorage.deployed();
+}
+```
+
+We do no provide RPC-URL or private key because hard hat has Harhat Network, local Ethereum network node designed for develpment.
+If we want to choose the network
+
+```bash
+yarn hardhat run scripts/deploy.js --network hardhat
+```
+
+[ChainListId](https://chainlist.org/)
