@@ -587,3 +587,13 @@ yarn hardhat run scripts/deploy.js --network hardhat
 ```
 
 [ChainListId](https://chainlist.org/)
+
+If we want to automatically verify our contract we can use plugins
+
+```bash
+npm i --save-dev @nomiclabs/hardhat-etherscan
+```
+
+```bash
+npx hardhat verify --network ...
+```
