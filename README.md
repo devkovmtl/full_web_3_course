@@ -537,3 +537,29 @@ Once we create our App in Alchemy we can grab the Http Key endpoint, that will b
 For the private key we can use our metamask private key.
 
 (typescript code - 08:17:05)
+
+### HardHat SimpleStorage (08:20:18)
+
+HardHat smart contract developer framework. Development Environment.
+
+```bash
+yarn init
+
+yarn add --dev hardhat
+```
+
+```bash
+yarn hardhat
+```
+
+To print fake accounts that we can use we hardhat:
+
+```bash
+npx hardhat accounts
+```
+
+Compile our contract
+
+```bash
+yarn harhat compile
+```
