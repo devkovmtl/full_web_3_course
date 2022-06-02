@@ -608,3 +608,16 @@ yarn harhdat node
 ```
 
 Spin up a node in local network extacly the same as gananche in our terminal.
+
+##### Running Test (09:26:13)
+
+To delete the artifact anf caches folder :
+
+```bash
+yarn hardhat clean
+```
+
+##### Hardhat Gas Reporter (09:38:10)
+
+We can start testing how much gas each one of our function cost.
+[hardhat-gas-reporter](https://www.npmjs.com/package/hardhat-gas-reporter)
