@@ -627,3 +627,13 @@ We can start testing how much gas each one of our function cost.
 [solidity-coverage](https://github.com/sc-forks/solidity-coverage)
 
 ### HardHat Fund ME (10:00:49)
+
+To deploy our contract we are going to use hardhat-deploy
+[hardhat-deploy](https://www.npmjs.com/package/hardhat-deploy)
+add `require("hardhat-deploy")` to our hardhat.config.js
+We don't the scripts/deploy.js
+install: `npm install --save-dev @nomiclabs/hardhat-ethers@npm:hardhat-deploy-ethers ethers` because
+we work on ethereum blockchain.
+
+To be able to test our aggregtor price we are going to use mocks.
+mocking is creating objects that simulate the behavior or real objects.
