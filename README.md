@@ -621,3 +621,7 @@ yarn hardhat clean
 
 We can start testing how much gas each one of our function cost.
 [hardhat-gas-reporter](https://www.npmjs.com/package/hardhat-gas-reporter)
+
+##### Hardhat Gas Reporter (09:44:40)
+
+[solidity-coverage](https://github.com/sc-forks/solidity-coverage)

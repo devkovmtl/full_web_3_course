@@ -1,6 +1,7 @@
 require('@nomiclabs/hardhat-waffle');
 require('@nomiclabs/hardhat-etherscan');
 require('hardhat-gas-reporter');
+require('solidity-coverage');
 require('dotenv').config();
 require('./tasks/block-number');
 // You need to export an object to set up your config
@@ -39,6 +40,6 @@ module.exports = {
     outputFile: 'gas-report.txt',
     noColors: true,
     currency: 'USD',
-    // coinmarketcap: COINMARKETCAP_API_KEY,
+    coinmarketcap: COINMARKETCAP_API_KEY,
   },
 };
