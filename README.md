@@ -598,4 +598,13 @@ npm i --save-dev @nomiclabs/hardhat-etherscan
 npx hardhat verify --network ...
 ```
 
-#### Custom Hardhat Task
+##### Hardhat localhost node
+
+hardhat.config.js can be used to modify the entire project, to give our project more functionality.
+We can run run hardhat network like we run a ganache network with user interface.
+
+```bash
+yarn harhdat node
+```
+
+Spin up a node in local network extacly the same as gananche in our terminal.

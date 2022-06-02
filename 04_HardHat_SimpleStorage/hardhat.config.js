@@ -16,6 +16,11 @@ const ETHERSCAN_API_KEY = process.env.ETHERSCAN_API_KEY;
 module.exports = {
   defaultNetwork: 'hardhat',
   networks: {
+    localhost: {
+      //when we run  yarn harhdat node localhost
+      url: 'http://127.0.0.1:8545/',
+      chainId: 31337, // same chainid as hardhat
+    },
     rinkeby: {
       // gives the rpc url to connect to rinkbe
       url: RINKEBY_RPC_URL,
