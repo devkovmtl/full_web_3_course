@@ -641,3 +641,5 @@ mocking is creating objects that simulate the behavior or real objects.
 (Utils folder 10:52:50)
 
 #### Solidity Style Guide (11:00:10)
+
+(testing - 11:18:10)
