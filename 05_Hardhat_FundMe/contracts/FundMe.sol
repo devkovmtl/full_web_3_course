@@ -9,11 +9,20 @@ import "./PriceConverter.sol";
 // set a minimum funding value in USD
 
 // custom error to save gas
-error NotOwner();
+error FundMe__NotOwner();
 
+// Interfaces, libraries
+
+/** @title A contract for crowdfunding
+ *  @author dev.kov.mtl
+ *  @notice This contract is to demo a sample funding contract
+ *  @dev implement price feed as our library
+ */
 contract FundMe {
+    // Type declarations
     // now we can use the function of priceconverter on uint256
     using PriceConverter for uint256;
+    // state Variable
 
     // minimum usd we want
     // uint256 public minimumUSD = 50 * 1e18;
@@ -27,11 +36,42 @@ contract FundMe {
 
     AggregatorV3Interface public priceFeed;
 
+    modifier onlyOwner() {
+        // require(msg.sender == i_owner, "Sender is not owner");
+        if (msg.sender != i_owner) {
+            revert FundMe__NotOwner();
+        }
+        _; // doing the rest of code
+    }
+
+    // Functions Order:
+    //// constructor
+    //// receive
+    //// fallback
+    //// external
+    //// public
+    //// internal
+    //// private
+    //// view / pure
+
+    // we can add receive() and fallback() just in case somebody
+    // send money instead of calling the fund() method
+    receive() external payable {
+        fund();
+    }
+
+    fallback() external payable {
+        fund();
+    }
+
     constructor(address priceFeedAddress) {
         i_owner = msg.sender;
         priceFeed = AggregatorV3Interface(priceFeedAddress);
     }
 
+    /**
+     *  @notice This function funds this contract
+     */
     // anybody can call it -> public
     // receive fund -> payable
     function fund() public payable {
@@ -73,23 +113,5 @@ contract FundMe {
             value: address(this).balance
         }("");
         require(callSuccess, "Call failed");
-    }
-
-    modifier onlyOwner() {
-        // require(msg.sender == i_owner, "Sender is not owner");
-        if (msg.sender != i_owner) {
-            revert NotOwner();
-        }
-        _; // doing the rest of code
-    }
-
-    // we can add receive() and fallback() just in case somebody
-    // send money instead of calling the fund() method
-    receive() external payable {
-        fund();
-    }
-
-    fallback() external payable {
-        fund();
     }
 }
