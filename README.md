@@ -639,3 +639,5 @@ To be able to test our aggregtor price we are going to use mocks.
 mocking is creating objects that simulate the behavior or real objects.
 
 (Utils folder 10:52:50)
+
+#### Solidity Style Guide (11:00:10)
