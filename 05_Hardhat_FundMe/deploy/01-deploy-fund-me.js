@@ -1,6 +1,7 @@
 // import
 const { ethers, run, network } = require("hardhat")
 const { networkConfig, developmentChains } = require("../helper-hardhat-config")
+const { verify } = require("../utils/verify")
 
 // calling of main function
 module.exports = async (hre) => {
@@ -26,7 +27,16 @@ module.exports = async (hre) => {
         from: deployer,
         args: [ethUsdPriceFeedAddress], // put price feed address
         log: true,
+        waitConfirmation: network.config.blockConfirmation || 1, // from hardhat
     })
+
+    if (
+        !developmentChains.includes(network.name) &&
+        process.env.ETHERSCAN_API_KEY
+    ) {
+        // verify
+        await verify(fundMe.address, [ethUsdPriceFeedAddress])
+    }
 
     log("=======================================================")
 }
