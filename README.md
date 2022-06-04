@@ -645,3 +645,40 @@ mocking is creating objects that simulate the behavior or real objects.
 (testing - 11:18:10)
 
 (storage in solidity - 11:44:33)
+
+### HTML / JavaScript (12:32:57)
+
+Wallet allow to have a connection with a blockchain
+We are going to use window.ethereum to connect if metamask is installed.
+We need to check if window.ethereum exist if doesn't exist can't connect to blockchain.
+Try to connect to metamask with eth_requestAccounts
+
+window.ethereum.request({ method: 'eth_requestAccounts' });
+
+```javascript
+// fund function
+async function fund(ethAmount) {
+  console.log(`Funding with ${ethAmount}...`);
+  if (typeof window.ethereum !== 'undefined') {
+    // to fund we need a provider // connection to the blockchain // here metamask
+    const provider = new ethers.providers.Web3Provider(window.ethereum);
+    // signer // wallet someone with some gas
+    const signer = provider.getSigner(); // account connected
+    console.log(signer);
+    // contract to interact with
+    // ABI & Address
+    const contract = new ethers.Contract(contractAddress, abi, signer); // usually once deployed contract address dont change
+    const transactionResponse = await contract.fund({
+      value: ethers.utils.parseEther(ethAmount),
+    });
+  }
+}
+```
+
+To interact with blockchain while we are developing we need to spin up blockchain
+
+```bash
+yarn hardhat node
+```
+
+grab the address be sure to connect the metamask to the right blockchain, localhot, rinkeby...
