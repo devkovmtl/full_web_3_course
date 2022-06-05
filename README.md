@@ -682,3 +682,20 @@ yarn hardhat node
 ```
 
 grab the address be sure to connect the metamask to the right blockchain, localhot, rinkeby...
+
+### HardHat SmartContract Lottery/Raffle (13:41:03)
+
+Allow user to engage in a fair and decentralize lottery
+To get a pure verifiable number we'll use ChainLink VRF then will use Chainlink keeper to automate
+one of the winner getting picked.
+
+1 - create new folder
+2 - `yarn init -y`
+3 - `yarn add --dev hardhat`
+4 - `yarn hardhat` - to get started with a new project
+5 - create an empty hardhat.config.js
+6 - Install dependencies:
+
+```bash
+yarn add --dev @nomiclabs/hardhat-ethers@npm:hardhat-deploy-ethers ethers @nomiclabs/hardhat-etherscan @nomiclabs/hardhat-waffle chai ethereum-waffle hardhat hardhat-contract-sizer hardhat-deploy hardhat-gas-reporter prettier prettier-plugin-solidity solhint solidity-coverage dotenv
+```
