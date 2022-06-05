@@ -699,3 +699,26 @@ one of the winner getting picked.
 ```bash
 yarn add --dev @nomiclabs/hardhat-ethers@npm:hardhat-deploy-ethers ethers @nomiclabs/hardhat-etherscan @nomiclabs/hardhat-waffle chai ethereum-waffle hardhat hardhat-contract-sizer hardhat-deploy hardhat-gas-reporter prettier prettier-plugin-solidity solhint solidity-coverage dotenv
 ```
+
+#### Introduction to Events (13:54:03)
+
+Whenever we update a dynamic object like array or map we want to emit an event
+Events allow to "print" stuff to logging structure
+Smart contract can't access the log, event are cheaper.
+
+Each event are tied to smart contract or address that emit the event in transaction.
+
+```solidity
+event storeNumber(uint256 indexed oldNumber, uint256 indexed newNumber, address sender);
+```
+
+We can have up to 3 indexed parameter they are also known as topics, indexed paramaters are much easier
+to search for.
+
+```solidity
+emit storedNumber(
+    favoriteNumber,
+    _favoriteNumber,
+    msg.sender
+);
+```
