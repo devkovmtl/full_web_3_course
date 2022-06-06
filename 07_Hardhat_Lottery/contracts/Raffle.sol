@@ -13,6 +13,7 @@ import "@chainlink/contracts/src/v0.8/VRFConsumerBaseV2.sol";
 // -> Randomness, Automated Execution (Chainlink keeper)
 
 error Raffle__NotEnoughETHEntered();
+error Raffle__TransferFailed();
 
 contract Raffle is VRFConsumerBaseV2 {
     // we are going to set minimum ETH price
@@ -30,9 +31,13 @@ contract Raffle is VRFConsumerBaseV2 {
     uint16 private constant REQUEST_CONFIRMATIONS = 3;
     uint32 private constant NUM_WORDS = 1;
 
+    // Lottery variable
+    address private s_recentWinner;
+
     /* event */
     event RaffleEnter(address indexed player);
     event RequestRaffleWinner(uint256 indexed requestId);
+    event WinnerPicked(address indexed winner);
 
     constructor(
         address vrfCoordinatorV2,
@@ -78,7 +83,18 @@ contract Raffle is VRFConsumerBaseV2 {
     function fulfillRandomWords(uint256 requestId, uint256[] memory randomWords)
         internal
         override
-    {}
+    {
+        // pick random winner using modulo
+        uint256 indexOfWinner = randomWords[0] % s_players.length;
+        address payable recentWinner = s_players[indexOfWinner];
+        s_recentWinner = recentWinner;
+        // send the money
+        (bool success, ) = recentWinner.call{value: address(this).balance}("");
+        if (!success) {
+            revert Raffle__TransferFailed();
+        }
+        emit WinnerPicked(recentWinner);
+    }
 
     /* View / Pure Functions */
     function getEntranceFee() public view returns (uint256) {
@@ -87,5 +103,9 @@ contract Raffle is VRFConsumerBaseV2 {
 
     function getPlayer(uint256 index) public view returns (address) {
         return s_players[index];
+    }
+
+    function getRecentWinner() public view returns (address) {
+        return s_recentWinner;
     }
 }
