@@ -16,6 +16,11 @@ import "@chainlink/contracts/src/v0.8/KeeperCompatible.sol";
 error Raffle__NotEnoughETHEntered();
 error Raffle__TransferFailed();
 error Raffle__NotOpen();
+error Raffle_UpkeepNotNeeded(
+    uint256 currentBalance,
+    uint256 numPlayers,
+    uint256 raffleState
+);
 
 contract Raffle is VRFConsumerBaseV2, KeeperCompatibleInterface {
     /* Type declarations */
@@ -94,8 +99,7 @@ contract Raffle is VRFConsumerBaseV2, KeeperCompatibleInterface {
     function checkUpkeep(
         bytes calldata /* checkData */
     )
-        external
-        view
+        public
         override
         returns (
             bool upkeepNeeded,
@@ -113,7 +117,19 @@ contract Raffle is VRFConsumerBaseV2, KeeperCompatibleInterface {
         upkeepNeeded = isOpen && timePassed && hasBalance && hasPlayers;
     }
 
-    function requestRandomWinner() external {
+    // performupkeep get called when checkUpKeep is true
+    // function requestRandomWinner() external {
+    function performUpkeep(
+        bytes calldata /*performData*/
+    ) external {
+        (bool upkeepNeeded, ) = checkUpkeep("");
+        if (!upkeepNeeded) {
+            revert Raffle_UpkeepNotNeeded(
+                address(this.balance),
+                s_players.length,
+                uint256(s_raffleState)
+            );
+        }
         // Chainlink Vrf is a 2 transaction process
         // request random number
         // once we get the random number do something
@@ -138,9 +154,11 @@ contract Raffle is VRFConsumerBaseV2, KeeperCompatibleInterface {
         uint256 indexOfWinner = randomWords[0] % s_players.length;
         address payable recentWinner = s_players[indexOfWinner];
         s_recentWinner = recentWinner;
-        // recetp player array
+        // reset player array
         s_players = new address payable[](0);
         s_raffleState = RaffleState.OPEN;
+        // reset timestamp
+        s_lastTimeStamp = block.timestamp;
         // send the money
         (bool success, ) = recentWinner.call{value: address(this).balance}("");
         if (!success) {
