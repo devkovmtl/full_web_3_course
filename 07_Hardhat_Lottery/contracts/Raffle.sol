@@ -70,7 +70,7 @@ contract Raffle is VRFConsumerBaseV2 {
 
         // Will revert if subscription is not set and funded.
         // return request id uin32
-        uint256 requestId = i_entranceFee.requestRandomWords(
+        uint256 requestId = i_vrfCoordinator.requestRandomWords(
             i_gasLane, //gasLane // https://docs.chain.link/docs/vrf-contracts/
             i_subscriptionId, // subscription to fund our contract //https://vrf.chain.link/
             REQUEST_CONFIRMATIONS,
