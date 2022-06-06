@@ -22,6 +22,11 @@ error Raffle_UpkeepNotNeeded(
     uint256 raffleState
 );
 
+/** @title sample raffle contract
+ *  @notice This contract is for creating an untamperable decentralized
+ * smart contract
+ *  @dev implements chainlink VRF V2 and chainlink keeper
+ */
 contract Raffle is VRFConsumerBaseV2, KeeperCompatibleInterface {
     /* Type declarations */
     enum RaffleState {
@@ -97,7 +102,7 @@ contract Raffle is VRFConsumerBaseV2, KeeperCompatibleInterface {
      *  4 - The lottery should be open state
      */
     function checkUpkeep(
-        bytes calldata /* checkData */
+        bytes memory /* checkData */
     )
         public
         override
@@ -121,11 +126,11 @@ contract Raffle is VRFConsumerBaseV2, KeeperCompatibleInterface {
     // function requestRandomWinner() external {
     function performUpkeep(
         bytes calldata /*performData*/
-    ) external {
+    ) external override {
         (bool upkeepNeeded, ) = checkUpkeep("");
         if (!upkeepNeeded) {
             revert Raffle_UpkeepNotNeeded(
-                address(this.balance),
+                address(this).balance,
                 s_players.length,
                 uint256(s_raffleState)
             );
@@ -178,5 +183,25 @@ contract Raffle is VRFConsumerBaseV2, KeeperCompatibleInterface {
 
     function getRecentWinner() public view returns (address) {
         return s_recentWinner;
+    }
+
+    function getRaffleState() public view returns (RaffleState) {
+        return s_raffleState;
+    }
+
+    function getNumWords() public view returns (uint256) {
+        return NUM_WORDS;
+    }
+
+    function getNumberOfPlayers() public view returns (uint256) {
+        return s_players.length;
+    }
+
+    function getLatestTimeStamp() public view returns (uint256) {
+        return s_lastTimeStamp;
+    }
+
+    function getRequestConfirmations() public pure returns (uint256) {
+        return REQUEST_CONFIRMATIONS;
     }
 }
