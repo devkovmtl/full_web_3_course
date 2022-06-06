@@ -722,3 +722,5 @@ emit storedNumber(
     msg.sender
 );
 ```
+
+(chainlink video explanation: 14:03:05)
