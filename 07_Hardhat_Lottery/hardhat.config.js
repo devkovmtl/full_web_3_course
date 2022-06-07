@@ -27,6 +27,9 @@ module.exports = {
         },
     },
     solidity: "0.8.7",
+    mocha: {
+        timeout: 200000,
+    },
     namedAccounts: {
         deployer: {
             default: 0,
