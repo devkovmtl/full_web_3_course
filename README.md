@@ -724,3 +724,4 @@ emit storedNumber(
 ```
 
 (chainlink video explanation: 14:03:05)
+(test : 15:20:37)
