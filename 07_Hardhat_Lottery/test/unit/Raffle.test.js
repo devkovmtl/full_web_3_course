@@ -137,4 +137,41 @@ const {
                   assert(upkeepNeeded)
               })
           })
+
+          describe("performUpkeep", async function () {
+              it("it can only run if checkupkeep is true", async function () {
+                  await raffle.enterRaffle({ value: raffleEntranceFee })
+                  await network.provider.send("evm_increaseTime", [
+                      interval.toNumber() + 1,
+                  ])
+                  await network.provider.request({
+                      method: "evm_mine",
+                      params: [],
+                  })
+                  const tx = await raffle.performUpkeep("0x")
+                  assert(tx)
+              })
+              it("reverts if checkup is false", async () => {
+                  await expect(raffle.performUpkeep("0x")).to.be.revertedWith(
+                      "Raffle_UpkeepNotNeeded"
+                  )
+              })
+              it("updates the raffle state and emits a requestId", async () => {
+                  // Too many asserts in this test!
+                  await raffle.enterRaffle({ value: raffleEntranceFee })
+                  await network.provider.send("evm_increaseTime", [
+                      interval.toNumber() + 1,
+                  ])
+                  await network.provider.request({
+                      method: "evm_mine",
+                      params: [],
+                  })
+                  const txResponse = await raffle.performUpkeep("0x")
+                  const txReceipt = await txResponse.wait(1)
+                  const raffleState = await raffle.getRaffleState()
+                  const requestId = txReceipt.events[1].args.requestId
+                  assert(requestId.toNumber() > 0)
+                  assert(raffleState == 1)
+              })
+          })
       })
