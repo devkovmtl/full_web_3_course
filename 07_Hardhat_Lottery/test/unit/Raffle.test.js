@@ -77,4 +77,19 @@ const {
                   ).to.be.revertedWith("Raffle__NotOpen")
               })
           })
+
+          describe("checkUpkeep", async function () {
+              it("returns false if people haven't sent any ETH", async function () {
+                  await network.provider.send("evm_increaseTime", [
+                      interval.toNumber() + 1,
+                  ])
+
+                  await network.provider.send("evm_mine", [])
+                  // simulate calling this transaction
+                  const { upkeepNeeded } = await raffle.callStatic.checkUpkeep(
+                      []
+                  )
+                  assert(!upkeepNeeded)
+              })
+          })
       })
