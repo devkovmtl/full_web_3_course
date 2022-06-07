@@ -8,17 +8,19 @@ const {
 !developmentChains.includes(network.name)
     ? describe.skip
     : describe("Raffle", async function () {
-          let raffle, vrfCoordinatorV2Mock
+          let raffle, vrfCoordinatorV2Mock, raffleEntranceFee, deployer
+
           const chainId = network.config.chainId
 
           beforeEach(async function () {
-              const { deployer } = await getNamedAccounts()
+              deployer = (await getNamedAccounts()).deployer
               await deployments.fixture(["all"]) // deploy everythings // tags "all"
               raffle = await ethers.getContract("Raffle", deployer) // Raffle contract connected to deployer
               vrfCoordinatorV2Mock = await ethers.getContract(
                   "VRFCoordinatorV2Mock",
                   deployer
               )
+              raffleEntranceFee = await raffle.getEntranceFee()
           })
 
           describe("constructor", async function () {
@@ -41,6 +43,14 @@ const {
                   await expect(raffle.enterRaffle()).to.be.revertedWith(
                       "Raffle__NotEnoughETHEntered"
                   )
+              })
+
+              it("records players when they enter", async function () {
+                  // because we are connected to deployer
+                  // we can check deployer is in contract
+                  await raffle.enterRaffle({ value: raffleEntranceFee })
+                  const playerFromContract = await raffle.getPlayer(0)
+                  assert.equal(playerFromContract, deployer)
               })
           })
       })
