@@ -8,7 +8,11 @@ const {
 !developmentChains.includes(network.name)
     ? describe.skip
     : describe("Raffle", async function () {
-          let raffle, vrfCoordinatorV2Mock, raffleEntranceFee, deployer
+          let raffle,
+              vrfCoordinatorV2Mock,
+              raffleEntranceFee,
+              deployer,
+              interval
 
           const chainId = network.config.chainId
 
@@ -16,6 +20,7 @@ const {
               deployer = (await getNamedAccounts()).deployer
               await deployments.fixture(["all"]) // deploy everythings // tags "all"
               raffle = await ethers.getContract("Raffle", deployer) // Raffle contract connected to deployer
+              interval = await raffle.getInterval()
               vrfCoordinatorV2Mock = await ethers.getContract(
                   "VRFCoordinatorV2Mock",
                   deployer
@@ -27,7 +32,6 @@ const {
               it("initializes the raffle correctly", async function () {
                   // ideally we make our test have just 1 assert per "it"
                   const raffleState = await raffle.getRaffleState()
-                  const interval = await raffle.getInterval()
                   // raffleState will be a big number 0 open 1 Calculating
                   // tostring to compare
                   assert.equal(raffleState.toString(), "0")
@@ -57,6 +61,20 @@ const {
                   await expect(
                       raffle.enterRaffle({ value: raffleEntranceFee })
                   ).to.emit(raffle, "RaffleEnter") // raffle contract emit RaffleEnter event
+              })
+
+              it("doesn't allow entrance when rafle is calculating", async function () {
+                  await raffle.enterRaffle({ value: raffleEntranceFee })
+                  // we want to "advance the time"
+                  await network.provider.send("evm_increaseTime", [
+                      interval.toNumber() + 1,
+                  ])
+                  await network.provider.send("evm_mine", [])
+                  // we pretend to be a chainlink keeper
+                  await raffle.performUpkeep([])
+                  await expect(
+                      raffle.enterRaffle({ value: raffleEntranceFee })
+                  ).to.be.revertedWith("Raffle__NotOpen")
               })
           })
       })
