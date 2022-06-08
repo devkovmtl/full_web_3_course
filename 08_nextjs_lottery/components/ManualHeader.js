@@ -33,7 +33,7 @@ export default function ManualHeader() {
 
   return (
     <nav>
-      <h1>Decentralized Lottery</h1>
+      <h1>hDecentralized Lottery</h1>
       <div>
         {account ? (
           <div>
