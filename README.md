@@ -725,3 +725,11 @@ emit storedNumber(
 
 (chainlink video explanation: 14:03:05)
 (test : 15:20:37)
+(staging test : 16:07:45)
+
+// in order to test we need: (16:18:00)
+1 - get our subid for chainlink vrf
+2 - Deploy our contract using the subid
+3 - register the contract with chainlink vrf & it's subid
+4 - register the contract with chainlink keepers
+5 - run staging test

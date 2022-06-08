@@ -5,6 +5,7 @@ const {
     networkConfig,
 } = require("../../helper-hardhat-config")
 
+// only run on localhost
 !developmentChains.includes(network.name)
     ? describe.skip
     : describe("Raffle", async function () {
