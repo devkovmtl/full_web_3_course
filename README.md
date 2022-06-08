@@ -733,3 +733,7 @@ emit storedNumber(
 3 - register the contract with chainlink vrf & it's subid
 4 - register the contract with chainlink keepers
 5 - run staging test
+
+---
+
+### NextJS Smart Contract Lottery (16:34:07)
