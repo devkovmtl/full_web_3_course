@@ -8,7 +8,7 @@ const networkConfig = {
         entranceFee: ethers.utils.parseEther("0.01"),
         gasLane:
             "0xd89b2bf150e3b9e13446986e571fb9cab24b13cea0a43ea20a6049a85cc807cc", // 30 Gwei Key Hash
-        subscriptionId: "0",
+        subscriptionId: "6114", //https://vrf.chain.link/
         callbackGasLimit: "500000", // 500,000
         interval: 30, // 30 seconds
     },
