@@ -737,3 +737,17 @@ emit storedNumber(
 ---
 
 ### NextJS Smart Contract Lottery (16:34:07)
+
+(ipfs 18:15)
+(hosting on IPFS 18:18:52)
+
+// gateway
+https://ipfs.io/ipfs/
+
+Deploy website
+https://fleek.co/
+
+https://filecoin.io/
+nft.storage
+https://web3.storage/
+https://docs.textile.io/
