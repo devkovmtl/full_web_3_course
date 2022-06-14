@@ -751,3 +751,16 @@ https://filecoin.io/
 nft.storage
 https://web3.storage/
 https://docs.textile.io/
+
+### Hardhat Starter Kit (18:51:37)
+
+### Hardhat ERC20 (18:59:25)
+
+Smart Contract that represent a token.
+
+1 - Governance Tokens
+2 - Secure an underlying network
+3 - Create a synthetic asset
+4 - Or anything else
+
+To build an ERC20 token we need to build a smart contract that follow the token standard, implement ERC20 token.
