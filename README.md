@@ -772,3 +772,6 @@ To build an ERC20 token we need to build a smart contract that follow the token 
 DeFi (Decentralize finance)
 
 ### ULTIMATE NFT (20:28:51)
+
+(basic Nft 20:40:38)
+(random ipfs Nft 20:54:57)
